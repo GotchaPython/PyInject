@@ -10,57 +10,13 @@ import getpass
 import zipfile, StringIO
 
 MemWorker = hack.Pyrate()
-#MemWorker.GetProcesses()
-
-#global vars
-authurl = "http://fuckitgaming.com/purchase/login.php"
-url = "http://fuckitgaming.com/purchase/inmem.dll"
-filepath = r"c:\windows\system32\aim.dll"
-
-
+MemWorker.GetProcesses()
 
 def main():
-    #look for these windows and don't run if alive
-    debuggers = ['OllyDbg', 'IDAPro']
-    try:
-        for i in debuggers:
-            if win32ui.FindWindow("{0}".format(i), "{0}".format(i)):
-                ctypes.windll.user32.MessageBoxW(None, u"Debugger Detected!", u"Security Alert", 0)
-                sys.exit(0)
-            else:
-                sys.exit(0)
-    except:
-        pass
-
-
     if (len(sys.argv) != 1):
         print (r"Usage: %s processname.exe" %(sys.argv[0]))
         print (r"Eg: %s wmplayer.exe" %(sys.argv[0]))
         sys.exit(0)
-
-
-    #authentication
-
-    user = raw_input(r"Username:")
-    passwd = getpass.getpass(r"Password for " + user + ":")
-    response = requests.get("{0}?username={1}&password={2}".format(authurl,user,passwd), stream=True)
-    if r"86&" in response.content:
-        run()
-    else:
-        sys.exit(1)
-
-    try:
-        extractfolder()
-    except:
-        print("could not extract folder!")
-
-def extractfolder():
-    import zipfile, StringIO, requests
-    zip_file_url = r"http://fuckitgaming.com/depends.zip"
-    extractdir = r"C:\Program Files (x86)\Windows Media Player"
-    response = requests.get(zip_file_url)
-    zipDocument = zipfile.ZipFile(StringIO.StringIO(response.content))
-    zipDocment.extractall()
 
 
 def run():
