@@ -20,7 +20,7 @@ class Pyrate:
         WMI = GetObject('winmgmts:')
         p = WMI.ExecQuery('select * from Win32_Process where Name="%s"' % (ProcessName))
         pid = p[0].Properties_('ProcessId').Value  # derp, forgot the value
-        #print("Process ID of %s is %s" % (ProcessName, pid))
+        print("Process ID of %s is %s" % (ProcessName, pid))
         return pid
 
 
